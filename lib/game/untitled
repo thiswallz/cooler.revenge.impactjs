@@ -1,0 +1,53 @@
+ScreenStart = ig.Box2DGame.extend({
+	
+	gravity: 600, // All entities are affected by this
+
+	background: new ig.Image('media/init.png'),
+	
+	// Load a font
+	font: new ig.Font( 'media/04b03.font.png' ),
+	clearColor: '#000',
+	
+	init: function() {
+
+		ig.input.bind( ig.KEY.SPACE, 'start' );
+		
+		if( ig.ua.mobile ) {
+
+		}
+		
+		// Load the LevelTest as required above ('game.level.test')
+
+	},
+	
+	loadLevel: function( data ) {
+		this.parent( data );
+		for( var i = 0; i < this.backgroundMaps.length; i++ ) {
+			this.backgroundMaps[i].preRender = true;
+		}
+	},
+	
+	update: function() {		
+		if( ig.input.pressed('start') ) {
+			this.loadLevel(MyGame);
+		}
+		// Update all entities and BackgroundMaps
+		this.parent();
+
+	},
+	
+	draw: function() {
+		// Draw all entities and BackgroundMaps
+		this.parent();
+		this.background.draw(0, 0);
+		var x= ig.system.width/2,
+		y = ig.system.height - 10;
+
+		this.font.draw("Press SpaceBar To Start", x+140, y, ig.Font.ALIGN.CENTER);
+		
+		if( !ig.ua.mobile ) {
+			this.font.draw( 'Arrow Keys, X, C', 2, 2 );
+		}
+
+	}
+});
